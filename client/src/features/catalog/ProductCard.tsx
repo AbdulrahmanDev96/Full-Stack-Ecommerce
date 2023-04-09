@@ -1,6 +1,16 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
-import {Product} from "./../../app/models/Product";
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import {
+  Avatar,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Typography,
+} from "@mui/material";
+import {Product} from "../../app/models/Product";
+import { Link } from "react-router-dom";
+// import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
 interface Props {
   product: Product;
@@ -11,22 +21,22 @@ export default function ProductCart({product}: Props) {
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{bgcolor: 'secondary.main'}}>
+          <Avatar sx={{bgcolor: "secondary.main"}}>
             {product.name.charAt(0).toUpperCase()}
           </Avatar>
         }
         title={product.name}
         titleTypographyProps={{
-          sx: {fontWeight: 'bold', color: 'primary.main'}
+          sx: {fontWeight: "bold", color: "primary.main"},
         }}
       />
       <CardMedia
-        sx={{height: 140, backgroundSize: 'contain', bgcolor: 'primary.main'}}
+        sx={{height: 140, backgroundSize: "contain", bgcolor: "primary.main"}}
         image={product.pictureUrl}
         title={product.name}
       />
       <CardContent>
-        <Typography gutterBottom color='secondary' variant="h5">
+        <Typography gutterBottom color="secondary" variant="h5">
           ${(product.price / 100).toFixed(2)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -35,7 +45,7 @@ export default function ProductCart({product}: Props) {
       </CardContent>
       <CardActions>
         <Button size="small">Add To Cart</Button>
-        <Button size="small">View</Button>
+        <Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button>
       </CardActions>
     </Card>
   );

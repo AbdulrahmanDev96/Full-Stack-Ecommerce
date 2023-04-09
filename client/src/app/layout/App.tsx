@@ -1,8 +1,9 @@
-import Catalog from "../../features/catalog/Catalog";
+// import Catalog from "../../features/catalog/Catalog";
 import {createTheme, Container, CssBaseline} from "@mui/material";
 import Header from "./Header";
 import {ThemeProvider} from "@emotion/react";
 import {useState} from "react";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [darkMood, SetDarkMood] = useState(false);
@@ -25,7 +26,7 @@ function App() {
       <CssBaseline />
       <Header darkMood={darkMood} handleThemeChange={handleThemeChange} />
       <Container>
-        <Catalog />
+        <Outlet />
       </Container>
     </ThemeProvider>
   );
