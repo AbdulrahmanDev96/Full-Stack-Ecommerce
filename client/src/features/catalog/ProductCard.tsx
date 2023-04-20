@@ -51,11 +51,11 @@ export default function ProductCard({product}: Props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <LoadingButton 
+      <LoadingButton 
           loading={status.includes('pendingAddItem' + product.id)} 
           onClick={() => dispatch(addBasketItemAsync({productId: product.id}))} 
           size="small">Add to Cart</LoadingButton>
-        <Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button>
+      <Button component={Link} to={`/catalog/${product.id}`}  size="small">View</Button>
       </CardActions>
     </Card>
   );
