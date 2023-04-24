@@ -1,20 +1,10 @@
-import {
-  AppBar,
-  List,
-  ListItem,
-  Switch,
-  Toolbar,
-  Typography,
-  IconButton,
-  Badge,
-  Box,
-} from "@mui/material";
+import {AppBar,List,ListItem,Switch,Toolbar,Typography,IconButton,Badge,Box} from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import FlareIcon from "@mui/icons-material/Flare";
 import {Link, NavLink} from "react-router-dom";
 import {ShoppingCart} from "@mui/icons-material";
-import { useStoreContext } from "../context/StoreContext";
 import { useAppSelector } from "../store/configureStore";
+import SingedInMenu from "./SignedInMenu";
 
 const midLink = [
   {title: "catalog", path: "/catalog"},
@@ -46,6 +36,7 @@ interface Props {
 
 export default function Header({darkMood, handleThemeChange}: Props) {
   const {basket} = useAppSelector(state => state.basket);
+  const {user} = useAppSelector(state => state.account)
   const itemCount = basket?.items.reduce((sum, item ) => sum + item.quantity, 0)
 
   return (
@@ -85,13 +76,19 @@ export default function Header({darkMood, handleThemeChange}: Props) {
               <ShoppingCart />
             </Badge>
           </IconButton>
-          <List sx={{display: "flex"}}>
+          {user ? (
+            <SingedInMenu/>
+          ): (
+            <List sx={{display: "flex"}}>
             {rightLink.map(({title, path}) => (
-              <ListItem component={NavLink} to={path} key={path} sx={navStyle}>
+              <ListItem component={NavLink} 
+                to={path} key={path} sx={navStyle}
+                >
                 {title.toUpperCase()}
               </ListItem>
             ))}
           </List>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
