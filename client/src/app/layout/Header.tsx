@@ -64,10 +64,19 @@ export default function Header({darkMood, handleThemeChange}: Props) {
 
         <List sx={{display: "flex"}}>
           {midLink.map(({title, path}) => (
-            <ListItem component={NavLink} to={path} key={path} sx={navStyle}>
+            <ListItem component={NavLink} 
+              to={path} 
+              key={path} 
+              sx={navStyle}>
               {title.toUpperCase()}
             </ListItem>
           ))}
+          {user && user.roles?.includes('Admin') &&
+          <ListItem component={NavLink} 
+              to={'/inventory'} 
+              sx={navStyle}>
+              Inventory
+            </ListItem>}
         </List>
 
         <Box display='flex'alignItems='center'>
