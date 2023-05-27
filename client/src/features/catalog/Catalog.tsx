@@ -1,69 +1,60 @@
-import {Grid,Paper} from "@mui/material";
+import {Container, Grid,Stack, Typography} from "@mui/material";
 import ProductList from "./ProductList";
 import LoadingComponent from "./../../app/layout/LoadingComponent";
-import {useAppDispatch, useAppSelector} from "../../app/store/configureStore";
-import { setPageNumber, setProductParams} from "./catalogSlice";
-import ProductSearch from "./ProductSearch";
-import RadioButtonGroup from "../../app/components/RadioButtonGroup";
-import CheckboxButtons from "../../app/components/CheckboxButtons";
+import {useAppDispatch} from "../../app/store/configureStore";
+import { setPageNumber} from "./catalogSlice";
+// import ProductSearch from "./ProductSearch";
 import AppPagination from "../../app/components/AppPagination";
 import useProduct from "../../app/hooks/useProduct";
+import { useState } from "react";
+import ProductFilterSidebar from "../../sections/productfilter/ProductFilterSidebar";
+import ProductSort from "../../sections/productfilter/ProductSort";
 
-const sortOptions = [
-  {value: "name", label: "Alphabetical"},
-  {value: "priceDesc", label: "Price - High to low"},
-  {value: "price", label: "Price - Low to high"},
-];
 
 export default function Catalog() {
-  const {products, brands, types, filtersLoaded, metaData } = useProduct();
-  const {productParams } = useAppSelector((state) => state.catalog);
+  const {products, filtersLoaded, metaData } = useProduct();
   const dispatch = useAppDispatch();
+  const [openFilter, setOpenFilter] = useState(false);
+
+  const handleOpenFilter = () => {
+    setOpenFilter(true);
+  };
+
+  const handleCloseFilter = () => {
+    setOpenFilter(false);
+  };
+
 
   if (!filtersLoaded) return <LoadingComponent message="loading Product..." />;
 
+  
   return (
-    <Grid container columnSpacing={4}>
-      <Grid item xs={3}>
-        <Paper sx={{mb: 2}}>
-          <ProductSearch />
-        </Paper>
-        
-        <Paper sx={{mb: 2, p: 2}}>
-          <RadioButtonGroup
-          selectedValue={productParams.orderBy}
-          options={sortOptions}
-          onChange={(e) => dispatch(setProductParams({orderBy: e.target.value}))}
-          />
-        </Paper>
+    <>
+      <Container >
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          Products
+        </Typography>
 
-        <Paper sx={{mb: 2, p: 2}}>
-          <CheckboxButtons
-          items={brands}
-          checked={productParams.brands}
-          onChange={(items: string[]) => dispatch(setProductParams({brands : items}))}
-          />
-        </Paper>
-
-        <Paper sx={{mb: 2, p: 2}}>
-        <CheckboxButtons
-          items={types}
-          checked={productParams.types}
-          onChange={(items: string[]) => dispatch(setProductParams({types : items}))}
-          />
-        </Paper>
-      </Grid>
-      <Grid item xs={9}>
+        <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
+          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+            <ProductFilterSidebar
+              openFilter={openFilter}
+              onOpenFilter={handleOpenFilter}
+              onCloseFilter={handleCloseFilter} icon={""} />
+            <ProductSort />
+          </Stack>
+        </Stack>
+      
         <ProductList products={products} />
-      </Grid>
-      <Grid item xs={3} />
-      <Grid item xs={9} sx={{mb:2 }}>
+      </Container>
+      
+      <Grid item xs={12} sm={9} sx={{ my: 5 }} >
         {metaData && 
         <AppPagination
         metaData={metaData}
         onPageChang={(page: number) => dispatch(setPageNumber({pageNumber: page}))}
         />}
       </Grid>
-    </Grid>
+    </>
   );
 }

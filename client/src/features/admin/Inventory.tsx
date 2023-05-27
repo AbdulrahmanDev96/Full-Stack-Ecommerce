@@ -53,7 +53,7 @@ export default function Inventory() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
               <TableRow>
-                  <TableCell>#</TableCell>
+                  <TableCell>Num</TableCell>
                   <TableCell align="left">Product</TableCell>
                   <TableCell align="right">Price</TableCell>
                   <TableCell align="center">Type</TableCell>

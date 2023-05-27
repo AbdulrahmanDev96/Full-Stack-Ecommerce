@@ -13,6 +13,7 @@ import RequireAuth from "./RequireAuth";
 import Orders from "../../features/orders/Orders";
 import CheckoutWrapper from "../../features/checkout/CheckoutWrapper";
 import Inventory from "../../features/admin/Inventory";
+import Dashboard from "../../features/admin/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       // admin routes
       {element: <RequireAuth roles={['Admin']}/>, children: [
         {path: 'inventory' , element: <Inventory/>},
+        {path: 'dashboard' , element: <Dashboard/>},
       ]},
       {path: 'catalog' , element: <Catalog/>},
       {path: 'catalog/:id' , element: <ProductDetails/>},
@@ -37,7 +39,7 @@ export const router = createBrowserRouter([
       {path: 'basket' , element: <BasketPage/>},
       {path: 'login' , element: <Login/>},
       {path: 'register' , element: <Register/>},
-      {path: '*', element: <Navigate replace to='not-found'/>}
+      {path: '*', element: <Navigate replace to='/not-found'/>}
     ]
   }
 ])

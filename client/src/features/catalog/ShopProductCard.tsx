@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import {Product} from "../../app/models/Product";
 import { Link } from "react-router-dom";
@@ -19,20 +19,10 @@ export default function ProductCard({product}: Props) {
 
   return (
     <Card sx={{height: '100%', width: '100%', display: 'flex',
-    flexDirection: 'column', position: 'relative'}}>
-      <CardActionArea sx={{flexGrow: 1}}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{bgcolor: "secondary.main"}}>
-            {product.name.charAt(0).toUpperCase()}
-          </Avatar>
-        }
-        title={product.name}
-        titleTypographyProps={{
-          sx: {fontWeight: "bold", color: "primary.main"},
-        }}/>
+        flexDirection: 'column', position: 'relative'}}>
+      <CardActionArea sx={{flexGrow: 1, height: 200}}>
       <CardMedia 
-        sx={{height: 140, backgroundSize: "contain", bgcolor: "inherit"}}
+        sx={{height: 180, backgroundSize: "contain", bgcolor: "inherit"}}
         image={product.pictureUrl}
         title={product.name}
       />
@@ -49,7 +39,7 @@ export default function ProductCard({product}: Props) {
       <LoadingButton 
           loading={status ==='pendingAddItem' + product.id} 
           onClick={() => dispatch(addBasketItemAsync({productId: product.id}))} 
-          size="small">{<AddShoppingCart />}</LoadingButton>
+          size="large">{<AddShoppingCart />}</LoadingButton>
         <Button component={Link} to={`/catalog/${product.id}`}  size="small">{<RemoveRedEyeIcon/>}</Button>
       </CardActions>
     </Card>

@@ -32,7 +32,7 @@ export default function Register() {
   return (
     <Container
       component={Paper}
-      maxWidth="sm"
+      maxWidth="xs"
       sx={{
         display: "flex",
         flexDirection: "column",

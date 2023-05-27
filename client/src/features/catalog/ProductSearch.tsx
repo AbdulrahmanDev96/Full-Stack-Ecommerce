@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
 import { setProductParams } from "./catalogSlice";
 import { useState } from "react";
 
+
+
 export default function ProductSearch() {
   const {productParams} = useAppSelector(state => state.catalog);
   const [searchTerm, setSearchTerm] = useState(productParams.searchTerm)
@@ -13,7 +15,7 @@ export default function ProductSearch() {
   },1000)
 
   return (
-    <TextField 
+    <TextField
       label="Search product" 
       variant="outlined" 
       fullWidth 

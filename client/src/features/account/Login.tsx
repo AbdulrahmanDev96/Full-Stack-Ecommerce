@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <Container
       component={Paper}
-      maxWidth="sm"
+      maxWidth="xs"
       sx={{
         display: "flex",
         flexDirection: "column",
